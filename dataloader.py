@@ -4,7 +4,6 @@ import pickle
 
 class TextIGNGraphDataset(Dataset):
     """Face Landmarks dataset."""
-
     def __init__(self, dataset, root_dir=None, name='train'):
         self.pickle_path = f'{root_dir}/{dataset}/{name}'
 
@@ -28,7 +27,8 @@ class TextIGNGraphDataset(Dataset):
         if chunk != self.loaded_index:
             with open(f"{self.pickle_path}/chunk.{chunk}.x_adj", 'rb') as f:
                 self.loaded_chunk_adj = pickle.load(f)
-            with open(f"{self.pickle_path}/chunk.{chunk}.x_adj_mask", 'rb') as f:
+            with open(f"{self.pickle_path}/chunk.{chunk}.x_adj_mask",
+                      'rb') as f:
                 self.loaded_chunk_mask = pickle.load(f)
             with open(f"{self.pickle_path}/chunk.{chunk}.x_embed", 'rb') as f:
                 self.loaded_chunk_embed = pickle.load(f)
@@ -37,5 +37,4 @@ class TextIGNGraphDataset(Dataset):
 
             self.loaded_index = chunk
 
-        return self.loaded_chunk_adj[idx % self.chunk_length], self.loaded_chunk_mask[idx % self.chunk_length], \
-               self.loaded_chunk_embed[idx % self.chunk_length], self.loaded_chunk_y[idx % self.chunk_length]
+        return self.loaded_chunk_adj[idx % self.chunk_length], self.loaded_chunk_mask[idx % self.chunk_length], self.loaded_chunk_embed[idx % self.chunk_length], self.loaded_chunk_y[idx % self.chunk_length]
